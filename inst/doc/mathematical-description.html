@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Mathematical Description of Varmapack</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Mathematical Description of Varmapack</h1>
+
+
+
+<p>For more details of the mathematics, see Kristján Jónasson (2026),
+[“Burn-in-Free Simulation of VARMA Time Series”] (<a href="https://arxiv.org/abs/2608.29199" class="uri">https://arxiv.org/abs/2608.29199</a>), arXiv:2608.29199.</p>
+<div id="varma-and-varmax-models" class="section level2">
+<h2>VARMA and VARMAX models</h2>
+<p>The models considered are either VARMA <span class="math inline">\((p,q)\)</span>:</p>
+<p><span class="math display">\[
+\tag{1}
+x_t = \sum_{i=1}^{p} A_i x_{t-i} + \varepsilon_t
+      + \sum_{j=1}^{q} B_j \varepsilon_{t-j},
+      \quad \varepsilon_t \sim N(0,\Sigma).
+\]</span></p>
+<p>or VARMAX <span class="math inline">\((p,q,s)\)</span>:</p>
+<p><span class="math display">\[
+\tag{2}
+x_t = \varepsilon_t + \sum_{i=1}^{p} A_i x_{t-i}
+      + \sum_{j=1}^{q} B_j \varepsilon_{t-j}
+      + \sum_{k=1}^{s} C_k z_{t-k+1},
+      \quad \varepsilon_t \sim N(0,\Sigma),
+\]</span></p>
+<p>where in both cases <span class="math inline">\(x_t\)</span> is <span class="math inline">\(r\)</span>-dimensional, <span class="math inline">\(\varepsilon_t\)</span> are shocks or innovations,
+<span class="math inline">\(A_i\)</span> and <span class="math inline">\(B_j\)</span> are <span class="math inline">\(r\)</span> by <span class="math inline">\(r\)</span> autoregressive and moving-average
+coefficient matrices, <span class="math inline">\(C_k\)</span> is an
+<span class="math inline">\(r\)</span> by <span class="math inline">\(d\)</span> exogenous coefficient matrix, <span class="math inline">\(z_t\)</span> is a <span class="math inline">\(d\)</span>-dimensional exogenous vector, and <span class="math inline">\(\Sigma\)</span> is the innovation covariance
+matrix. Varmapack supports a time-dependent mean path <span class="math inline">\(\mu_t\)</span> for VARMA simulation. Explicit mean
+paths are unsupported for VARMAX. For VARMA, the recursion is applied to
+the centered series <span class="math inline">\(x_t - \mu_t\)</span>,
+which replaces <span class="math inline">\(x_t\)</span> in equation (1).
+The mean may also be fixed, i.e. independent of the time step.</p>
+</div>
+<div id="var-vma-varx-and-vmax-models" class="section level2">
+<h2>VAR, VMA, VARX, and VMAX models</h2>
+<p>A model with <span class="math inline">\(q=s=0\)</span> is a pure
+vector-autoregressive (VAR) model, and when <span class="math inline">\(p=s=0\)</span> the model is a pure moving-average
+(VMA) model. Similarly, when <span class="math inline">\(q\)</span> or
+<span class="math inline">\(p\)</span> are zero and <span class="math inline">\(s &gt; 0\)</span> the models are designated VARX
+or VMAX.</p>
+</div>
+<div id="simulation-start" class="section level2">
+<h2>Simulation start</h2>
+<p>There are two possibilities to start VARMA simulation with Varmapack:
+(a) by drawing both shocks <span class="math inline">\(\varepsilon_t\)</span> and states <span class="math inline">\(x_t\)</span> from the exact joint distribution of
+<span class="math inline">\((x,\varepsilon)\)</span> for the initial
+segment <span class="math inline">\(t=0,\ldots,h-1\)</span>, where <span class="math inline">\(h=\max(p,q)\)</span>, and (b) by specifying <span class="math inline">\(h \geq\max(p,q)\)</span> initial values of the
+series and drawing the first <span class="math inline">\(h\)</span>
+shocks from the conditional distribution of <span class="math inline">\((\varepsilon|x)\)</span>. In case (b), the
+covariance matrix of the startup states must be positive definite.</p>
+<p>For a stationary model, both (a) and (b) are possible, and the
+simulated series will have the correct distribution from the first
+generated term, so that no burn-in segment needs to be discarded.</p>
+<p>For a nonstationary model, starting values must be supplied. For a
+pure VAR model (<span class="math inline">\(q=0\)</span>), the
+recurrence simply runs forward from those values. If MA terms are
+present, startup innovations are drawn from their theoretical
+distribution, conditional on constraints imposed by the model and
+supplied states. <span class="math inline">\(\Sigma\)</span> must be
+positive semidefinite and is allowed to be singular except for
+nonstationary models with MA terms.</p>
+<p>With VARMAX simulation, startup states must be provided: <span class="math inline">\(x_t\)</span> for <span class="math inline">\(t=0,\ldots,h-1\)</span>, where <span class="math inline">\(h\geq\max(p,q,s-1)\)</span>, as well as the whole
+sequence of exogenous values <span class="math inline">\(z_t\)</span>,
+<span class="math inline">\(t=0,\ldots,n-1\)</span>. As for
+nonstationary VARMA, <span class="math inline">\(\Sigma\)</span> must be
+positive definite, and the startup innovations are then drawn from their
+theoretical distribution, conditional on constraints imposed by the
+model and the supplied states and exogenous sequence. When more than
+<span class="math inline">\(\max(p,q,s-1)\)</span> values of <span class="math inline">\(x_t\)</span> and corresponding <span class="math inline">\(z_t\)</span> are available, they should be
+supplied, to improve the information used to draw the innovations.</p>
+</div>
+<div id="autocovariances" class="section level2">
+<h2>Autocovariances</h2>
+<p>Varmapack can compute the theoretical autocovariance function of
+model (1),</p>
+<p><span class="math display">\[
+\Gamma_k = \operatorname{Cov}(x_t, x_{t-k}), \qquad k=0,1,2,\ldots,
+\]</span></p>
+<p>up to a user-specified maximum lag. It can also compute sample
+autocovariance matrices from observed data. The default
+maximum-likelihood normalization is</p>
+<p><span class="math display">\[
+\widehat{\Gamma}_k =
+\frac{1}{n}\sum_{t=k}^{n-1}(x_t-\bar{x})(x_{t-k}-\bar{x})^T,
+\]</span></p>
+<p>and the corrected normalization replaces the denominator <span class="math inline">\(n\)</span> by <span class="math inline">\(n-k\)</span>.</p>
+</div>
+<div id="spectral-radii" class="section level2">
+<h2>Spectral radii</h2>
+<p>The spectral radius <span class="math inline">\(\rho\)</span> of the
+model (1) is defined as the spectral radius (maximum absolute
+eigenvalue) of the autoregressive companion matrix, which is a square
+block matrix with <span class="math inline">\(A_1,\ldots,A_p\)</span> on
+the first block row and identity matrices on the block-subdiagonal.
+Stationary models have <span class="math inline">\(\rho &lt; 1\)</span>.
+The spectral radius of the moving average companion matrix, which has
+<span class="math inline">\(-B_1,\ldots,-B_q\)</span> on the top block
+row, plays a different role: it provides an invertibility diagnostic.
+Models with MA companion spectral radius <span class="math inline">\(&lt;1\)</span> are invertible, in the sense that
+the moving-average polynomial of the backshift operator <span class="math inline">\(L\)</span>, <span class="math inline">\(B(L)\)</span> has a convergent inverse, <span class="math inline">\(B(L)^{-1} = I + D_1L + D_2 L^2 + \ldots\)</span>.
+It follows that the model can be written as an equivalent infinite pure
+VAR model</p>
+<p><span class="math display">\[
+x_t = E_1 x_{t-1} + E_2 x_{t-2} + \ldots + \varepsilon_t,
+\]</span></p>
+<p>where <span class="math inline">\(I-E_1L-E_2L^2-\ldots = (I + D_1L +
+D_2 L^2 + \ldots) A(L)\)</span>.</p>
+</div>
+<div id="impulse-response-functions" class="section level2">
+<h2>Impulse response functions</h2>
+<p>An important concept in time-series theory is that of impulse
+response functions. The impulse response matrix <span class="math inline">\(\Psi_j\)</span> maps a change in the shock at time
+<span class="math inline">\(t\)</span> to the resulting change in the
+process at time <span class="math inline">\(t + j\)</span>. If the time
+series is stationary, it can be expressed as an infinite VMA series:</p>
+<p><span class="math display">\[
+x_t = \sum_{j=0}^{\infty} \Psi_j \varepsilon_{t-j},
+\]</span></p>
+<p>which has the impulse response matrices as coefficients. With <span class="math inline">\(\Psi_0=I\)</span>, the remaining <span class="math inline">\(\Psi\)</span> matrices can be computed with the
+recursion</p>
+<p><span class="math display">\[
+\Psi_j = B_j + \sum_{i=1}^{\min(p,j)} A_i\Psi_{j-i},
+\]</span></p>
+<p>for <span class="math inline">\(j\geq 1\)</span>, with <span class="math inline">\(B_j=0\)</span> for <span class="math inline">\(j&gt;q\)</span>. Varmapack provides functions to
+compute these impulse responses as well as <em>orthogonalized impulse
+responses</em>, defined as</p>
+<p><span class="math display">\[
+\Theta_j=\Psi_jL,
+\]</span></p>
+<p>where <span class="math inline">\(L L^T=\Sigma\)</span>; for
+positive-definite <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(L\)</span> is its lower Cholesky factor. Only the
+lower triangle of <span class="math inline">\(\Sigma\)</span> is
+used.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+## Quick start
+
+```{r setup}
+library(varmapack)
+library(randompack)
+```
+
+Create a model from coefficient matrices and its innovation covariance. A
+single lag may be supplied as a matrix; multiple lags use an `r` by `r` by lag
+array.
+
+```{r varma}
+A <- matrix(c(0.5, 0.1,
+              0.0, 0.3), 2, 2)
+B <- matrix(c(0.2, 0.0,
+              0.1, 0.1), 2, 2)
+model <- varmapack_model(A = A, B = B, Sig = diag(2))
+
+rng <- randompack_rng()
+rng$seed(123)
+X <- model$sim(100, nrep = 3, rng = rng)
+dim(X)
+```
+
+The first dimension is the series dimension, the second is time, and the third
+selects the replicate. Requesting shocks returns a named list.
+
+```{r shocks}
+out <- model$sim(20, nrep = 2, rng = rng, return_shocks = TRUE)
+names(out)
+dim(out$E)
+```
+
+Built-in testcases return model objects.
+
+```{r testcases}
+varmapack_testcases()
+test_model <- varmapack_testcase("smallARMA1")
+test_model$specrad()
+```
+
+Model methods provide theoretical autocovariances, impulse responses, and the
+AR and MA spectral radii.
+
+```{r analysis}
+Gamma <- model$acvf(10)
+Psi <- model$psi(10)
+Theta <- model$irf(10)
+model$specrad()
+model$ma_specrad()
+```
+
+The `varmapack_autocov()` function computes sample autocovariances for an
+observed time-series matrix with variables in rows.
+
+```{r autocov}
+varmapack_autocov(X[, , 1], maxlag = 5)
+```
+
+VARMAX models use exogenous coefficient matrices `C` and input values `z`.
+They require fixed starting values `X0`.
+
+```{r varmax}
+C <- array(c(0.3, -0.2), c(2, 1, 1))
+varmax <- varmapack_model(A = A, B = B, C = C, Sig = diag(2))
+X0 <- matrix(0, 2, 2)
+z <- matrix(sin(seq_len(100)/10), 1, 100)
+Xmax <- varmax$sim(100, X0 = X0, z = z, rng = rng)
+```
