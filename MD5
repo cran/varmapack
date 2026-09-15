@@ -1,11 +1,11 @@
-0ccb296bf38ed96755057dbf7a93ebdf *DESCRIPTION
+d8c095d97f2e5092b73c58ec412bcd6c *DESCRIPTION
 674813df84f05df0c41fabd9e015fb6c *LICENSE
 d078e1c3b70a58291a0a7e08da9e3107 *NAMESPACE
-79168ae8ac8ff1623cd7c9b69b1bda5e *NEWS.md
+73e27ffc480360179e3837577fc5f970 *NEWS.md
 ee321a5b9d6b61d2a567cce475604a03 *R/functions.R
 8187ac47fc0b3906eea033ba68a59fbc *R/model.R
 6ed3cc65a00efc51df596b695f35775c *R/varmapack-package.R
-e425d90799d8c79aefb24fff44e3d792 *README.md
+4c62c57ce0e48d23110e63a13278014b *README.md
 4fdb6ec48d9d0cce761e71e996d7b489 *build/vignette.rds
 6071edd604dbeb75308cfbedc7790398 *cleanup
 a002d79b29ea9e9a77ecad070478dc06 *configure
@@ -17,6 +17,7 @@ eda85f1b7ebf9e1ee1ee4edef30a2c78 *inst/doc/getting-started.html
 3b22e2ad63ff485f4feb1ba6f4e0b653 *inst/doc/mathematical-description.R
 b4389d9ed79d471f6d159f4b41f5eeaf *inst/doc/mathematical-description.Rmd
 c05a0089ccfea5cae574538914939252 *inst/doc/mathematical-description.html
+047789507f789d8b7948a441172587be *inst/examples/EuStockMarkets.R
 f81c64bf526c927098d27df5a5f6d8fe *inst/examples/TimeSimulate.R
 9343731aad1dd75583002e882a893e28 *man/varmapack-package.Rd
 4897306fd299a1dca4f5bb6897fb9c1f *man/varmapack_autocov.Rd
@@ -36,7 +37,7 @@ a9c58ccea87d620dfdec2459d0bbece3 *src/RandompackRGateway.h
 46ff1b120f4e3393ba32431b65657026 *src/VarmaPackUtil.c
 1b890089e470ca0bd14ab47affdfd154 *src/VarmaPackUtil.h
 f00ab3a29efff71b36e75c9450d923e7 *src/VarmaUtilities.h
-51925e6fa0e81e83e6d54856c530882c *src/blasref.h
+620250935bcb3f31ed069801dd50f8b6 *src/blasref.h
 9eb0483075129f7c92ab1a09509733a5 *src/debugprint.h
 03027579433e3ca5c760711dac7beef4 *src/error.c
 ffc6d203211eb8912a4edbc5505464f1 *src/error.h
@@ -44,10 +45,10 @@ ffc6d203211eb8912a4edbc5505464f1 *src/error.h
 3fb85fb7ec4a32b5cdcd97bee6b6db1b *src/init.c
 0bdddbad37edcf1adec31e0e76c9eac5 *src/printX.h
 3dc2d75f62b229d18b0858db44b75835 *src/rp_dpstrf.c
-259e7324b3ce0d74e7b8dad720bc3c36 *src/sb03md-complete.F
-a322f9b0338db6bcc7081bcc7466fadc *src/sb03mdGateway.c
+3b1e8d6c3e24e7c6e7c0d258944adec1 *src/sb03md-complete.F
+a5cc326c8970921d4823ac24bb21ea7d *src/sb03mdGateway.c
 59963b3f0f0ddf4c4a47199d33d0b323 *src/sb03mdGateway.h
-6a002b02d405e3c651eba99977ec5dc4 *src/varmapack.h
+6c657ec7fe8d36bccf6cc2652b93ff6c *src/varmapack.h
 d5e71c8351bc32c174889d5efe32493d *src/varmapack_R.c
 0f0197f3c361cd7f750ab43216f7de44 *src/varmapack_acvf.c
 956911531248be23b593c5f4b82f36ed *src/varmapack_autocov.c
