@@ -239,25 +239,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<p>For more details of the mathematics, see Kristján Jónasson (2026),
-[“Burn-in-Free Simulation of VARMA Time Series”] (<a href="https://arxiv.org/abs/2608.29199" class="uri">https://arxiv.org/abs/2608.29199</a>), arXiv:2608.29199.</p>
+<p>For more details of the mathematics, see Kristján Jónasson (2026), <a href="https://doi.org/10.1016/j.softx.2026.103100">“Burn-in-free
+simulation of VARMA time series”</a>, <em>SoftwareX</em>, 36.</p>
+<p>The mathematics of new features for the Varmapack 0.2 series
+(0.2.xxx) is described separately in <a href="https://varmapack.readthedocs.io/en/latest/math-v0.2-draft.html">Varmapack
+0.2: Mathematics of New Features (Draft)</a>. That note contains
+LLM-generated material and has not yet been proof-read.</p>
 <div id="varma-and-varmax-models" class="section level2">
 <h2>VARMA and VARMAX models</h2>
 <p>The models considered are either VARMA <span class="math inline">\((p,q)\)</span>:</p>
-<p><span class="math display">\[
-\tag{1}
+<p><span class="math display">\[\tag{1}
 x_t = \sum_{i=1}^{p} A_i x_{t-i} + \varepsilon_t
       + \sum_{j=1}^{q} B_j \varepsilon_{t-j},
-      \quad \varepsilon_t \sim N(0,\Sigma).
-\]</span></p>
+      \quad \varepsilon_t \sim N(0,\Sigma).\]</span></p>
 <p>or VARMAX <span class="math inline">\((p,q,s)\)</span>:</p>
-<p><span class="math display">\[
-\tag{2}
+<p><span class="math display">\[\tag{2}
 x_t = \varepsilon_t + \sum_{i=1}^{p} A_i x_{t-i}
       + \sum_{j=1}^{q} B_j \varepsilon_{t-j}
       + \sum_{k=1}^{s} C_k z_{t-k+1},
-      \quad \varepsilon_t \sim N(0,\Sigma),
-\]</span></p>
+      \quad \varepsilon_t \sim N(0,\Sigma),\]</span></p>
 <p>where in both cases <span class="math inline">\(x_t\)</span> is <span class="math inline">\(r\)</span>-dimensional, <span class="math inline">\(\varepsilon_t\)</span> are shocks or innovations,
 <span class="math inline">\(A_i\)</span> and <span class="math inline">\(B_j\)</span> are <span class="math inline">\(r\)</span> by <span class="math inline">\(r\)</span> autoregressive and moving-average
 coefficient matrices, <span class="math inline">\(C_k\)</span> is an
@@ -310,16 +310,15 @@ supplied, to improve the information used to draw the innovations.</p>
 <h2>Autocovariances</h2>
 <p>Varmapack can compute the theoretical autocovariance function of
 model (1),</p>
-<p><span class="math display">\[
-\Gamma_k = \operatorname{Cov}(x_t, x_{t-k}), \qquad k=0,1,2,\ldots,
-\]</span></p>
-<p>up to a user-specified maximum lag. It can also compute sample
-autocovariance matrices from observed data. The default
-maximum-likelihood normalization is</p>
-<p><span class="math display">\[
-\widehat{\Gamma}_k =
-\frac{1}{n}\sum_{t=k}^{n-1}(x_t-\bar{x})(x_{t-k}-\bar{x})^T,
-\]</span></p>
+<p><span class="math display">\[\Gamma_k = \operatorname{Cov}(x_t,
+x_{t-k}), \qquad k=0,1,2,\ldots,\]</span></p>
+<p>up to a user-specified maximum lag.</p>
+<p>The inverse problem, recovering <span class="math inline">\(\Sigma\)</span> from a specified <span class="math inline">\(\Gamma_0\)</span>, is described in <a href="https://varmapack.readthedocs.io/en/latest/math-v0.2-draft.html#recovering-innovation-covariance">Recovering
+innovation covariance</a>.</p>
+<p>Varmapack can also compute sample autocovariance matrices from
+observed data. The default maximum-likelihood normalization is</p>
+<p><span class="math display">\[\widehat{\Gamma}_k =
+\frac{1}{n}\sum_{t=k}^{n-1}(x_t-\bar{x})(x_{t-k}-\bar{x})^T,\]</span></p>
 <p>and the corrected normalization replaces the denominator <span class="math inline">\(n\)</span> by <span class="math inline">\(n-k\)</span>.</p>
 </div>
 <div id="spectral-radii" class="section level2">
@@ -337,9 +336,8 @@ Models with MA companion spectral radius <span class="math inline">\(&lt;1\)</sp
 the moving-average polynomial of the backshift operator <span class="math inline">\(L\)</span>, <span class="math inline">\(B(L)\)</span> has a convergent inverse, <span class="math inline">\(B(L)^{-1} = I + D_1L + D_2 L^2 + \ldots\)</span>.
 It follows that the model can be written as an equivalent infinite pure
 VAR model</p>
-<p><span class="math display">\[
-x_t = E_1 x_{t-1} + E_2 x_{t-2} + \ldots + \varepsilon_t,
-\]</span></p>
+<p><span class="math display">\[x_t = E_1 x_{t-1} + E_2 x_{t-2} + \ldots
++ \varepsilon_t,\]</span></p>
 <p>where <span class="math inline">\(I-E_1L-E_2L^2-\ldots = (I + D_1L +
 D_2 L^2 + \ldots) A(L)\)</span>.</p>
 </div>
@@ -350,20 +348,16 @@ response functions. The impulse response matrix <span class="math inline">\(\Psi
 <span class="math inline">\(t\)</span> to the resulting change in the
 process at time <span class="math inline">\(t + j\)</span>. If the time
 series is stationary, it can be expressed as an infinite VMA series:</p>
-<p><span class="math display">\[
-x_t = \sum_{j=0}^{\infty} \Psi_j \varepsilon_{t-j},
-\]</span></p>
+<p><span class="math display">\[x_t = \sum_{j=0}^{\infty} \Psi_j
+\varepsilon_{t-j},\]</span></p>
 <p>which has the impulse response matrices as coefficients. With <span class="math inline">\(\Psi_0=I\)</span>, the remaining <span class="math inline">\(\Psi\)</span> matrices can be computed with the
 recursion</p>
-<p><span class="math display">\[
-\Psi_j = B_j + \sum_{i=1}^{\min(p,j)} A_i\Psi_{j-i},
-\]</span></p>
+<p><span class="math display">\[\Psi_j = B_j + \sum_{i=1}^{\min(p,j)}
+A_i\Psi_{j-i},\]</span></p>
 <p>for <span class="math inline">\(j\geq 1\)</span>, with <span class="math inline">\(B_j=0\)</span> for <span class="math inline">\(j&gt;q\)</span>. Varmapack provides functions to
 compute these impulse responses as well as <em>orthogonalized impulse
 responses</em>, defined as</p>
-<p><span class="math display">\[
-\Theta_j=\Psi_jL,
-\]</span></p>
+<p><span class="math display">\[\Theta_j=\Psi_jL,\]</span></p>
 <p>where <span class="math inline">\(L L^T=\Sigma\)</span>; for
 positive-definite <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(L\)</span> is its lower Cholesky factor. Only the
 lower triangle of <span class="math inline">\(\Sigma\)</span> is

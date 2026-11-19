@@ -1,7 +1,12 @@
 
 For more details of the mathematics, see Kristján Jónasson (2026),
-["Burn-in-Free Simulation of VARMA Time Series"]
-(https://arxiv.org/abs/2608.29199), arXiv:2608.29199.
+["Burn-in-free simulation of VARMA time series"](https://doi.org/10.1016/j.softx.2026.103100),
+*SoftwareX*, 36.
+
+The mathematics of new features for the Varmapack 0.2 series (0.2.xxx) is
+described separately in
+[Varmapack 0.2: Mathematics of New Features (Draft)](https://varmapack.readthedocs.io/en/latest/math-v0.2-draft.html).
+That note contains LLM-generated material and has not yet been proof-read.
 
 ## VARMA and VARMAX models
 
@@ -79,8 +84,13 @@ $$
 \Gamma_k = \operatorname{Cov}(x_t, x_{t-k}), \qquad k=0,1,2,\ldots,
 $$
 
-up to a user-specified maximum lag. It can also compute sample autocovariance
-matrices from observed data. The default maximum-likelihood normalization is
+up to a user-specified maximum lag.
+
+The inverse problem, recovering $\Sigma$ from a specified $\Gamma_0$, is
+described in [Recovering innovation covariance](https://varmapack.readthedocs.io/en/latest/math-v0.2-draft.html#recovering-innovation-covariance).
+
+Varmapack can also compute sample autocovariance matrices from observed data.
+The default maximum-likelihood normalization is
 
 $$
 \widehat{\Gamma}_k =
